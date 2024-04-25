@@ -1,8 +1,9 @@
 def weryfikacja_pesel():
     pesel = list(input("Podaj pesel: "))
     rok_int = int(pesel[0] + pesel[1])
-    if rok_int < 24:
-        rok = "19" + pesel[0] + pesel[1] + " lub 20" + pesel[0] + pesel[1]
+    miesiac_int = int(pesel[2] + pesel[3])
+    if miesiac_int > 12:
+        rok = "20" + pesel[0] + pesel[1]
         miesiac = str(int(pesel[2] + pesel[3]) - 20)
     else:
         rok = "19" + pesel[0] + pesel[1]
