@@ -37,7 +37,7 @@ def weryfikacja_pesel():
     Data urodzenia: {data_urodzenia}
     Liczba porządkowa: {l_porz}
     Płeć: {plec}
-    Cyfra kontrolna: {c_kontr}"""
+    Cyfra kontrolna: {c_kontr} (poprawna)"""
             
     return(info)
 
