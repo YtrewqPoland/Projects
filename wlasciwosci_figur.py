@@ -66,7 +66,7 @@ Wpisz tutaj: """)
         print(f"Pole: {kw.pole()}")
         print(f"Przekatna: {kw.przekatna()}")
         print(f"Obwód: {kw.obwod()}")
-    if wybor == "2":
+    elif wybor == "2":
         a = float(input("Podaj długość boku a: "))
         b = float(input("Podaj długość boku b: "))
         pr = Prostokat(a, b)
@@ -74,7 +74,7 @@ Wpisz tutaj: """)
         print(f"Pole: {pr.pole()}")
         print(f"Przekatna: {pr.przekatna()}")
         print(f"Obwód: {pr.obwod()}")
-    if wybor == "3":
+    elif wybor == "3":
         a = float(input("Podaj długość boku a: "))
         b = float(input("Podaj długość boku b: "))
         h = float(input("Podaj długość wysokosci h: "))
@@ -82,15 +82,15 @@ Wpisz tutaj: """)
         print("Dane: ")
         print(f"Pole: {row.pole()}")
         print(f"Obwód: {row.obwod()}")
-    if wybor == "4":
+    elif wybor == "4":
         e = float(input("Podaj długość przekątnej e: "))
         f = float(input("Podaj długość przekątnej f: "))
         rowe = Rownoleglobok_ef(e, f)
         print("Dane: ")
         print(f"Pole: {rowe.pole()}")
-    if wybor == "5":
+    elif wybor == "5":
         pass
-    if wybor == "6":
+    elif wybor == "6":
         a = float(input("Podaj długość boku a: "))
         h = float(input("Podaj długość wysokosci h: "))
         tr = Trojkat(a, h)
