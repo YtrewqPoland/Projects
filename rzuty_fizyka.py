@@ -1,23 +1,25 @@
 import math
 import matplotlib.pyplot as plt
 import numpy
-
+#stała grawitacji
 G = 9.81
 
 def rzut_poziomy():
 #dane
     vo = float(input("Podaj początkową szybkość ciała (w m/s): "))
     h = float(input("Podaj początkową wysokość ciała (w metrach): "))
+    if vo <= 0 or h <= 0:
+        return "Błędne dane wejściowe!"
     t = math.sqrt(2 * h / G)
     z = vo * math.sqrt(2 * h / G)
-    wykres = int(input("""Wybierz rodzaj wykresu, który chcesz otrzymać:
+    wykres = input("""Wybierz rodzaj wykresu, który chcesz otrzymać:
 1. Zasięg - Czas
 2. Wysokość - Czas
 3. Zasięg - Wysokość
 4. Wypisz dane dotyczące rzutu
-Wpisz tutaj: """))
-    if wykres == 1:
+Wpisz tutaj: """)
 #wykres zasięgu od czasu
+    if wykres == "1":
         x = [0, 1/8 * t, 1/4 * t, 3/8 * t, 1/2 * t, 5/8 * t, 3/4 * t, 7/8 * t, t]
         y = [0, vo * 1/8 * t, vo * 1/4 * t, vo * 3/8 * t, vo * 1/2 * t, vo * 5/8 * t, vo * 3/4 * t, vo * 7/8 * t, z]
         fig, ax = plt.subplots()
@@ -27,8 +29,8 @@ Wpisz tutaj: """))
         ax.set_title(f"""Wykres zależności zasięgu rzutu od czasu. 
 Dane: V pocz.: {vo} m/s, h pocz.: {h} m, czas spadania: ok. {round(t, 2)} s, zasięg rzutu: ok. {round(z, 2)} m)""")
         plt.show()
-    elif wykres == 2:
 #wykres wysokości od czasu
+    elif wykres == "2":
         x = [0, 1/8 * t, 1/4 * t, 3/8 * t, 1/2 * t, 5/8 * t, 3/4 * t, 7/8 * t, t]
         y = [h, h - G * (1/8 * t) ** 2 / 2, h - G * (1/4 * t) ** 2 / 2, h - G * (3/8 * t) ** 2 / 2, h - G * (1/2 * t) ** 2 / 2, h - G * (5/8 * t) ** 2 / 2, h - G * (3/4 * t) ** 2 / 2, h - G * (7/8 * t) ** 2 / 2, 0]
         fig, ax = plt.subplots()
@@ -39,7 +41,7 @@ Dane: V pocz.: {vo} m/s, h pocz.: {h} m, czas spadania: ok. {round(t, 2)} s, zas
 Dane: V pocz.: {vo} m/s, h pocz.: {h} m, czas spadania: ok. {round(t, 2)} s, zasięg rzutu: ok. {round(z, 2)} m""")
         plt.show()
 #wykres zasięgu rzutu od wysokości
-    elif wykres == 3:
+    elif wykres == "3":
         x = [0, 1/8 * z, 1/4 * z, 3/8 * z, 1/2 * z, 5/8 * z, 3/4 * z, 7/8 * z, z]
         t1 = 1/8 * z / vo; t2 = 1/4 * z / vo; t3 = 3/8 * z / vo; t4 = 1/2 * z / vo; t5 = 5/8 * z / vo; t6 = 3/4 * z / vo; t7 = 7/8 * z / vo
         y = [h, h - G * t1 ** 2 / 2, h - G * t2 ** 2 / 2, h - G * t3 ** 2 / 2 , h - G * t4 ** 2 / 2, h - G * t5 ** 2 / 2, h - G * t6 ** 2 / 2, h - G * t7 ** 2 / 2, 0]
@@ -51,7 +53,7 @@ Dane: V pocz.: {vo} m/s, h pocz.: {h} m, czas spadania: ok. {round(t, 2)} s, zas
 Dane: V pocz.: {vo} m/s, h pocz.: {h} m, czas spadania: ok. {round(t, 2)} s, zasięg rzutu: ok. {round(z, 2)} m""")
         plt.show()
 #wypisanie danych
-    elif wykres == 4:
+    elif wykres == "4":
         print(f"""Dane:
 Szybkość początkowa: {vo} m/s 
 Wysokość początkowa: {h} m
@@ -60,16 +62,58 @@ Zasięg rzutu: {z} m (ok. {round(z, 2)} m)""")
     else:
         print("Błędny wybór!")
     return "Zakończono działanie programu"
-
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def rzut_ukosny():
+    #dane
     vo = float(input("Podaj początkową szybkość ciała (w m/s): "))
     a = float(input("Podaj miarę kąta pomiędzy podłożem a wektorem szybkości: "))
-    h = vo ** 2 * math.pow(math.sin(a), 2) / 2 * G
+    if vo <= 0 or a <= 0 or a >= 90:
+        return "Błędne dane wejściowe!"
+    h = vo ** 2 * math.pow(math.sin(math.radians(a)), 2) / 2 * G
     t = vo * math.sin(a) / G
-    z = vo ** 2 *math.sin(2 * a) / G
-
+    z = vo ** 2 * math.sin(math.radians(2 * a)) / G
+    wykres = input("""Wybierz rodzaj wykresu, który chcesz otrzymać:
+1. Zasięg - Czas
+2. Wysokość - Czas
+3. Zasięg - Wysokość
+4. Wypisz dane dotyczące rzutu
+Wpisz tutaj: """)
+#wykres zasięgu od czasu
+    if wykres == "1":
+        x = [0, 1/4 * t, 1/2 * t, 3/4 * t, t, 5/4 * t, 3/2* t, 7/4 * t, 2 * t]
+        y = [0, 1/8 * z, 1/4 * z, 3/8 * z, 1/2 * z, 5/8 * z, 3/4* z, 7/8 * z, z] 
+        fig, ax = plt.subplots()
+        ax.plot(x, y)
+        ax.set_xlabel("Czas (s)")
+        ax.set_ylabel("Zasięg (m)")
+        ax.set_title(f"""Wykres zależności zasięgu rzutu od czasu. 
+Dane: V pocz.: {vo} m/s, h max.: {h} m, czas lotu: ok. {round(2 * t, 2)} s, zasięg rzutu: ok. {round(z, 2)} m)""")
+        plt.show()
+    elif wykres == "2":
+        pass
+    elif wykres == "3":
+        pass
+    elif wykres == "4":
+        print(f"""Dane:
+Szybkość początkowa: {vo} m/s 
+Kąt pomiędzy podłożem a wektorem prędkości {a}°
+Wysokość maksymalna: {h} m
+Czas lotu: {2 * t} s (ok. {round(2 * t, 2)} s)
+Zasięg rzutu: {z} m (ok. {round(z, 2)} m)""")
+    else:
+        print("Błędny wybór!")
+    return "Zakończono działanie programu"
 
 try:
-    print(rzut_poziomy())
+    wybor = input("""Wybierz rodzaj rzutu:
+1 - rzut poziomy
+2 - rzut ukośny
+Wpisz tutaj: """)
+    if wybor == "1":
+        print(rzut_poziomy())
+    elif wybor == "2":
+        print(rzut_ukosny())
+    else:
+        print("Błędny wybór wybór")
 except ValueError:
     print("Błędne dane wejściowe!")
