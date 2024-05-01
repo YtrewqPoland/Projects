@@ -16,7 +16,7 @@ try:
         while i < ilosc:
             a = random.randrange(0, 81)
             if znaki[a] not in haslo:
-                haslo.append(znaki[a])  
+                haslo.append(znaki[a])
                 i+=1
         haslo = "".join(haslo)
         print(f"Twoje nowo wygenerowane hasło to: {haslo}")
