@@ -62,58 +62,8 @@ Zasięg rzutu: {z} m (ok. {round(z, 2)} m)""")
     else:
         print("Błędny wybór!")
     return "Zakończono działanie programu"
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-def rzut_ukosny():
-    #dane
-    vo = float(input("Podaj początkową szybkość ciała (w m/s): "))
-    a = float(input("Podaj miarę kąta pomiędzy podłożem a wektorem szybkości: "))
-    if vo <= 0 or a <= 0 or a >= 90:
-        return "Błędne dane wejściowe!"
-    h = vo ** 2 * math.pow(math.sin(math.radians(a)), 2) / 2 * G
-    t = vo * math.sin(a) / G
-    z = vo ** 2 * math.sin(math.radians(2 * a)) / G
-    wykres = input("""Wybierz rodzaj wykresu, który chcesz otrzymać:
-1. Zasięg - Czas
-2. Wysokość - Czas
-3. Zasięg - Wysokość
-4. Wypisz dane dotyczące rzutu
-Wpisz tutaj: """)
-#wykres zasięgu od czasu
-    if wykres == "1":
-        x = [0, 1/4 * t, 1/2 * t, 3/4 * t, t, 5/4 * t, 3/2* t, 7/4 * t, 2 * t]
-        y = [0, 1/8 * z, 1/4 * z, 3/8 * z, 1/2 * z, 5/8 * z, 3/4* z, 7/8 * z, z] 
-        fig, ax = plt.subplots()
-        ax.plot(x, y)
-        ax.set_xlabel("Czas (s)")
-        ax.set_ylabel("Zasięg (m)")
-        ax.set_title(f"""Wykres zależności zasięgu rzutu od czasu. 
-Dane: V pocz.: {vo} m/s, h max.: {h} m, czas lotu: ok. {round(2 * t, 2)} s, zasięg rzutu: ok. {round(z, 2)} m)""")
-        plt.show()
-    elif wykres == "2":
-        pass
-    elif wykres == "3":
-        pass
-    elif wykres == "4":
-        print(f"""Dane:
-Szybkość początkowa: {vo} m/s 
-Kąt pomiędzy podłożem a wektorem prędkości {a}°
-Wysokość maksymalna: {h} m
-Czas lotu: {2 * t} s (ok. {round(2 * t, 2)} s)
-Zasięg rzutu: {z} m (ok. {round(z, 2)} m)""")
-    else:
-        print("Błędny wybór!")
-    return "Zakończono działanie programu"
 
 try:
-    wybor = input("""Wybierz rodzaj rzutu:
-1 - rzut poziomy
-2 - rzut ukośny
-Wpisz tutaj: """)
-    if wybor == "1":
-        print(rzut_poziomy())
-    elif wybor == "2":
-        print(rzut_ukosny())
-    else:
-        print("Błędny wybór wybór")
+    print(rzut_poziomy())
 except ValueError:
     print("Błędne dane wejściowe!")
