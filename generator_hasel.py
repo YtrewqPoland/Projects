@@ -6,13 +6,20 @@ znaki = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', '
             '!', '@', '#', '$', '%', '^', '&', '*','+', '-', '=', '|', ';', ':', '"', "'", '<', '>', '/', '?']
 try:
     ilosc = int(input("Ile znaków ma mieć hasło?: "))
-    haslo = []
-    i = 0
-    while i < ilosc:
-        haslo.append(znaki[random.randrange(0, 81)])
-        i += 1
-    haslo = "".join(haslo)
-    print(f"Twoje nowo wygenerowane hasło to: {haslo}")
+    if ilosc > 81:
+        print("Stworzenie takiego hasła jest niemożliwe, gdyż będzie miało powtarzające się znaki.")
+    else:
+        if ilosc < 8:
+            print("Pamiętaj, że silne hasło powinno zawierać przynajmniej 8 znaków!")
+        haslo = []
+        i = 0
+        while i < ilosc:
+            a = random.randrange(0, 81)
+            if znaki[a] not in haslo:
+                haslo.append(znaki[a])  
+                i+=1
+        haslo = "".join(haslo)
+        print(f"Twoje nowo wygenerowane hasło to: {haslo}")
 except ValueError:
     print("Błędny wybór!")
     
