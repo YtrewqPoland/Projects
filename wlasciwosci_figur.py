@@ -12,8 +12,14 @@ class Kwadrat:
         
 class Prostokat:
     def __init__(self, a, b):
-        self.a = a
-        self.b = b
+        if a > 0:
+            self.a = a
+        else:
+            return "Błędne dane wejściowe."
+        if a > 0:
+            self.b = b
+        else:
+            return None
     def pole(self):
         return self.a * self.b
     def przekatna(self):
@@ -61,41 +67,56 @@ try:
 Wpisz tutaj: """)
     if wybor == "1":
         a = float(input("Podaj długość boku a: "))
-        kw = Kwadrat(a)
-        print("Dane: ")
-        print(f"Pole: {kw.pole()}")
-        print(f"Przekatna: {kw.przekatna()}")
-        print(f"Obwód: {kw.obwod()}")
+        if a <= 0 :
+            print("Błędne dane wejściowe")
+        else:
+            kw = Kwadrat(a)
+            print("Dane: ")
+            print(f"Pole: {kw.pole()}")
+            print(f"Przekatna: {kw.przekatna()}")
+            print(f"Obwód: {kw.obwod()}")
     elif wybor == "2":
         a = float(input("Podaj długość boku a: "))
         b = float(input("Podaj długość boku b: "))
-        pr = Prostokat(a, b)
-        print("Dane: ")
-        print(f"Pole: {pr.pole()}")
-        print(f"Przekatna: {pr.przekatna()}")
-        print(f"Obwód: {pr.obwod()}")
+        if a <= 0 or b <= 0:
+            print("Błędne dane wejsciowe")
+        else:
+            pr = Prostokat(a, b)
+            print("Dane: ")
+            print(f"Pole: {pr.pole()}")
+            print(f"Przekatna: {pr.przekatna()}")
+            print(f"Obwód: {pr.obwod()}")
     elif wybor == "3":
         a = float(input("Podaj długość boku a: "))
         b = float(input("Podaj długość boku b: "))
         h = float(input("Podaj długość wysokosci h: "))
-        row = Rownoleglobok_abh(a, b, h)
-        print("Dane: ")
-        print(f"Pole: {row.pole()}")
-        print(f"Obwód: {row.obwod()}")
+        if a <= 0 or b <= 0 or h <= 0:
+            print("Błędne dane wejściowe")
+        else:
+            row = Rownoleglobok_abh(a, b, h)
+            print("Dane: ")
+            print(f"Pole: {row.pole()}")
+            print(f"Obwód: {row.obwod()}")
     elif wybor == "4":
         e = float(input("Podaj długość przekątnej e: "))
         f = float(input("Podaj długość przekątnej f: "))
-        rowe = Rownoleglobok_ef(e, f)
-        print("Dane: ")
-        print(f"Pole: {rowe.pole()}")
+        if e <= 0 or f <= 0:
+            print("Błędne dane wejściowe")
+        else:
+            rowe = Rownoleglobok_ef(e, f)
+            print("Dane: ")
+            print(f"Pole: {rowe.pole()}")
     elif wybor == "5":
         pass
     elif wybor == "6":
         a = float(input("Podaj długość boku a: "))
         h = float(input("Podaj długość wysokosci h: "))
-        tr = Trojkat(a, h)
-        print("Dane: ")
-        print(f"Pole: {tr.pole()}")
+        if a <= 0 or h <= 0:
+            print("Błędne dane wejściowe")
+        else:
+            tr = Trojkat(a, h)
+            print("Dane: ")
+            print(f"Pole: {tr.pole()}")
     else:
         print("Błędny wybór, spróbuj jeszcze raz!")
 except(ValueError):

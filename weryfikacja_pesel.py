@@ -41,5 +41,7 @@ def weryfikacja_pesel():
             
     return(info)
 
-
-print(weryfikacja_pesel())
+try:
+    print(weryfikacja_pesel())
+except ValueError:
+    print("Błędny numer PESEL")
