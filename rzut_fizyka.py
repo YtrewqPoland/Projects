@@ -1,14 +1,15 @@
 import math
 import matplotlib.pyplot as plt
-import numpy
 #stała grawitacji
 G = 9.81
 
 def rzut_poziomy():
 #dane
     vo = float(input("Podaj początkową szybkość ciała (w m/s): "))
-    h = float(input("Podaj początkową wysokość ciała (w metrach): "))
-    if vo <= 0 or h <= 0:
+    if vo <= 0:
+        return "Błędne dane wejściowe!"
+    h = float(input("Podaj początkową wysokoś, z której zostało wyrzucone ciało (w metrach): "))
+    if h <= 0:
         return "Błędne dane wejściowe!"
     t = math.sqrt(2 * h / G)
     z = vo * math.sqrt(2 * h / G)
@@ -60,7 +61,7 @@ Wysokość początkowa: {h} m
 Czas spadania: {t} s (ok. {round(t, 2)} s)
 Zasięg rzutu: {z} m (ok. {round(z, 2)} m)""")
     else:
-        print("Błędny wybór!")
+        return("Błędny wybór!")
     return "Zakończono działanie programu"
 
 try:
