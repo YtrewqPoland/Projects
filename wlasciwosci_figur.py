@@ -1,122 +1,70 @@
 import math
 
-class Kwadrat:
-    def __init__(self, a):
-        self.a = a
-    def pole(self):
-        return self.a ** 2
-    def przekatna(self):
-        return self.a * math.sqrt(2)
-    def obwod(self):
-        return 4 * self.a
-        
-class Prostokat:
-    def __init__(self, a, b):
-        if a > 0:
-            self.a = a
-        else:
-            return "Błędne dane wejściowe."
-        if a > 0:
-            self.b = b
-        else:
-            return None
-    def pole(self):
-        return self.a * self.b
-    def przekatna(self):
-        return math.sqrt(self.a ** 2 + self.b ** 2)
-    def obwod(self):
-        return 2 * self.a + 2 * self.b
-    
-class Rownoleglobok_abh:
-    def __init__(self, a, b, h): 
-        self.a = a
-        self.b = b
-        self.h = h
-    def pole(self):
-        return self.a * self.h
-    def obwod(self):
-        return 2 * self.a + 2 * self.h
-
-class Rownoleglobok_ef:
-    def __init__(self, e, f):
-        self.e = e
-        self.f = f
-    def pole(self):
-        return self.e * self.f / 2
-class Trojkat:
-    def __init__(self, a, h):
-        self.a = a
-        self.h = h
-    def pole(self):
-        return self.a * self.h / 2
-class Kolo:
-    def __init__(self, r):
-        self.r = r
-    def pole(self):
-        return math.pi * self.r ** 2
-    def obwod(self):
-        return 2 * math.pi * self.r
-try:           
+try:
     wybor = input("""Wybierz figurę:
 1 - kwadrat
 2 - prostokąt
 3 - równoleglobok (znane boki i wysokość)
-4 - równoległobok, w którym znamy tylko przekątne
-5 - romb
-6 - trójkąt
+4 - romb
+5 - trójkąt
+6 - trójkąt równoboczny
+7 - trapez
+8 - koło
 Wpisz tutaj: """)
     if wybor == "1":
         a = float(input("Podaj długość boku a: "))
         if a <= 0 :
             print("Błędne dane wejściowe")
         else:
-            kw = Kwadrat(a)
-            print("Dane: ")
-            print(f"Pole: {kw.pole()}")
-            print(f"Przekatna: {kw.przekatna()}")
-            print(f"Obwód: {kw.obwod()}")
+            print(f"Pole tego kwadratu to: {a ** 2}")
     elif wybor == "2":
         a = float(input("Podaj długość boku a: "))
         b = float(input("Podaj długość boku b: "))
         if a <= 0 or b <= 0:
             print("Błędne dane wejsciowe")
         else:
-            pr = Prostokat(a, b)
-            print("Dane: ")
-            print(f"Pole: {pr.pole()}")
-            print(f"Przekatna: {pr.przekatna()}")
-            print(f"Obwód: {pr.obwod()}")
+            print(f"Pole tego prostokąta to: {a * b}")
     elif wybor == "3":
         a = float(input("Podaj długość boku a: "))
-        b = float(input("Podaj długość boku b: "))
         h = float(input("Podaj długość wysokosci h: "))
-        if a <= 0 or b <= 0 or h <= 0:
+        if a <= 0 or h <= 0:
             print("Błędne dane wejściowe")
         else:
-            row = Rownoleglobok_abh(a, b, h)
-            print("Dane: ")
-            print(f"Pole: {row.pole()}")
-            print(f"Obwód: {row.obwod()}")
+            print(f"Pole tego równoległoboku to: {a * h}")
     elif wybor == "4":
         e = float(input("Podaj długość przekątnej e: "))
         f = float(input("Podaj długość przekątnej f: "))
         if e <= 0 or f <= 0:
             print("Błędne dane wejściowe")
         else:
-            rowe = Rownoleglobok_ef(e, f)
-            print("Dane: ")
-            print(f"Pole: {rowe.pole()}")
+            print(f"Pole tego rombu to: {e * f / 2}")
     elif wybor == "5":
-        pass
-    elif wybor == "6":
         a = float(input("Podaj długość boku a: "))
-        h = float(input("Podaj długość wysokosci h: "))
+        h = float(input("Podaj długość wysokosci h opuszczonej na bok a: "))
         if a <= 0 or h <= 0:
             print("Błędne dane wejściowe")
         else:
-            tr = Trojkat(a, h)
-            print("Dane: ")
-            print(f"Pole: {tr.pole()}")
+            print(f"Pole tego trójkąta to: {a * h / 2}")
+    elif wybor == "6":
+        a = float(input("Podaj długość boku a: "))
+        if a <= 0:
+            print("Błędne dane wejściowe")
+        else:
+            print(f"Pole tego trójkąta to: {a ** 2 * math.sqrt(3) / 4} (około {round(a ** 2 * math.sqrt(3) / 4, 2)})")
+    elif wybor == "7":
+        a = float(input("Podaj długość krótszej podstawy: "))
+        b = float(input("Podaj długość dłuszej podstawy: "))
+        h = float(input("Podaj długość wysokosci h: "))
+        if a <= 0 or b <= 0 or h <= 0:
+            print("Błędne dane wejściowe")
+        else:
+            print(f"Pole tego trapezu to {(a + b) * h / 2}")
+    elif wybor == "8":
+        r = float(input("Podaj długość promienia: "))
+        if r <= 0:
+            print("Błędne dane wejściowe")
+        else:
+            print(f"Pole tego koła to: {math.pi * r ** 2} (około {round(math.pi * r ** 2, 2)})")
     else:
         print("Błędny wybór, spróbuj jeszcze raz!")
 except(ValueError):
