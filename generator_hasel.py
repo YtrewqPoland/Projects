@@ -24,5 +24,5 @@ try:
             haslo = "".join(haslo)
             print(f"Twoje nowo wygenerowane hasło to: {haslo}")
 except ValueError:
-    print("Błędny wybór!")
+    print("Błędne dane wejściowe!")
     

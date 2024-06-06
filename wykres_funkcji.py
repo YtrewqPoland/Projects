@@ -25,7 +25,7 @@ def plot_function():
                 x1.append(x)
                 y1.append(eval(function_formula))
         
-        # Rysowanie wykresu
+        # Rysowanie wykresu 
         plt.plot(x1, y1, color = "blue")
         plt.plot(x2, y2, color = "blue")
         plt.xlabel('x')
@@ -36,9 +36,9 @@ def plot_function():
 try:
     plot_function()
 except ZeroDivisionError:
-    print("Pamiętaj, że nie można dzielić przez 0!")
+    print("Błąd, pamiętaj, że nie można dzielić przez 0!")
 except SyntaxError:
     print("Nieprawidłowy wzór funkcji! Pamiętaj żeby używać składni Pythona (*, **, / itd.)")
-except ValueError:
+except (ValueError, NameError):
     print("Nieprawidłowe dane wejściowe!")
 
