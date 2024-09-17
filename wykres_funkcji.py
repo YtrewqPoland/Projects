@@ -34,7 +34,6 @@ def plot_function():
         plt.axvline(x=0, color='black', linestyle='solid')
         plt.show()
 
-plot_function()
 try:
     plot_function()
 except ZeroDivisionError:
