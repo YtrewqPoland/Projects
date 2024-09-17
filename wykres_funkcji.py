@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import math
+import numpy as np
 
 def plot_function():
     # Pobieranie wzoru funkcji od użytkownika
@@ -14,25 +15,26 @@ def plot_function():
         print("Nieprawidłowa dziedzina funkcji.")
     else:
         if '/x' in function_formula or "/ x" in function_formula:
-            for x in range(a, -1):
-                x1.append(x)
-                y1.append(eval(function_formula))
-            for x in range(1, b):
-                x2.append(x)
-                y2.append(eval(function_formula))
+                x = np.arange(a, 0, 0.01)
+                y = eval(function_formula)
+                plt.plot(x, y, color = "blue")
+                x = np.arange(0.01, b + 0.01, 0.01)
+                y = eval(function_formula)
+                plt.plot(x, y, color = "blue")
         else:
-            for x in range(a, b):
-                x1.append(x)
-                y1.append(eval(function_formula))
-        
-        # Rysowanie wykresu 
-        plt.plot(x1, y1, color = "blue")
-        plt.plot(x2, y2, color = "blue")
+                x = np.arange(a, b + 0.01, 0.01)
+                y = eval(function_formula)
+                plt.plot(x, y, color = "blue")
+
         plt.xlabel('x')
         plt.ylabel('y')
         plt.title('Wykres funkcji: y = ' + function_formula)
         plt.grid(True)
+        plt.axhline(y=0, color='black', linestyle='solid')
+        plt.axvline(x=0, color='black', linestyle='solid')
         plt.show()
+
+plot_function()
 try:
     plot_function()
 except ZeroDivisionError:
