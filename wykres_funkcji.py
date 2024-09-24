@@ -15,34 +15,43 @@ def plot_function():
                  colorc = "green"
             if i == 4:
                  colorc = "yellow"
-            # Pobieranie wzoru funkcji od użytkownika
-            function_formula = input("Podaj wzór funkcji (pamiętaj o znakach składni Pythona!): ")
-            x1 = []
-            x2 = []
-            y1 = []
-            y2 = []
-            a = int(input("Podaj początek dziedziny funkcji: "))
-            b = int(input("Podaj koniec dziedziny funkcji (większe niż poprzednia!): "))
-            if a >= b:
-                print("Nieprawidłowa dziedzina funkcji.")
-            else:
-                if '/x' in function_formula or "/ x" in function_formula:
-                        x = np.arange(a, 0, 0.01)
-                        y = eval(function_formula)
-                        plt.plot(x, y, color = colorc)
-                        x = np.arange(0.01, b + 0.01, 0.01)
-                        y = eval(function_formula)
-                        plt.plot(x, y, color = colorc)
+            compartments = int(input("Z ilu przedziałów składa się funkcja?: "))
+            for j in range(compartments):
+                if j > 5:
+                    print("Zbyt duża liczba przedziałów!")
+                # Pobieranie wzoru funkcji od użytkownika
+                function_formula = input("Podaj wzór funkcji (pamiętaj o znakach składni Pythona!): ")
+                x1 = []
+                x2 = []
+                y1 = []
+                y2 = []
+                a = int(input("Podaj początek dziedziny funkcji: "))
+                b = int(input("Podaj koniec dziedziny funkcji (większe niż poprzednia!): "))
+                c = a
+                d = b
+                if a >= b:
+                    print("Nieprawidłowa dziedzina funkcji.")
                 else:
-                        x = np.arange(a, b + 0.01, 0.01)
-                        y = eval(function_formula)
-                        plt.plot(x, y, color = colorc)
-                plt.title('Wykres funkcji: y = ' + function_formula)
-        plt.xlabel('x')
-        plt.ylabel('y')
-        plt.grid(True)
-        plt.axhline(y=0, color='black', linestyle='solid')
-        plt.axvline(x=0, color='black', linestyle='solid')
+                    if '/x' in function_formula or "/ x" in function_formula:
+                            x = np.arange(a, 0, 0.01)
+                            y = eval(function_formula)
+                            plt.plot(x, y, color = colorc)
+                            x = np.arange(0.01, b + 0.01, 0.01)
+                            y = eval(function_formula)
+                            plt.plot(x, y, color = colorc)
+                    else:
+                            x = np.arange(a, b + 0.01, 0.01)
+                            y = eval(function_formula)
+                            plt.plot(x, y, color = colorc)
+            x = c
+            plt.scatter(x, eval(function_formula), s = 50, facecolor = colorc)
+            x = d
+            plt.scatter(x, eval(function_formula), s = 50, facecolor = colorc)
+            plt.xlabel('x')
+            plt.ylabel('y')
+            plt.grid(True)
+            plt.axhline(y=0, color='black', linestyle='solid')
+            plt.axvline(x=0, color='black', linestyle='solid')
         plt.show()
     else:
          print("Błąd!")
