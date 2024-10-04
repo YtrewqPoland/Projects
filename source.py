@@ -1,9 +1,11 @@
+#IMPORT
 import matplotlib.pyplot as plt
 import numpy as np
 import math
 import tkinter as tk
 import datetime as dt
-
+#------------------------------------------------------------------------------------------------------------------
+#FUNKCJE
 #aplikacja do rysowania wykresów funkcji
 def wykres_app():
     okno.title("Rysowanie wykresu funkcji")
@@ -11,6 +13,7 @@ def wykres_app():
     date.destroy()
     second_button.destroy()
     quit_button.destroy()
+    third_button.destroy()
     global pol_tekst
     pol_tekst = tk.Entry(okno, width=30)
     pol_tekst.grid(row=1, column=1)
@@ -79,22 +82,51 @@ def plot_function(function_formula, a, b):
         plt.plot(x, y, color = "red")
     plt.show()
 
-# główne menu
+#aplikacja do wyświetlania daty i godziny
+def date_show_app():
+    okno.title("Data i godzina")
+    second_button.destroy()
+    quit_button.destroy()
+    third_button.destroy()
+    date.grid(row=0, column=0)
+    dtnow = dt.date.today()
+    global info
+    info = tk.Label(okno, text="Czas do:")
+    info.grid(row=1, column=0)
+    global info1
+    datedate = dt.date(dtnow.year, 12, 24)
+    info1 = tk.Label(okno, text=f"Świąt Bożego Narodzenia: {(datedate-dtnow).days} dni")
+    info1.grid(row=2, column=0)
+    global info2
+    datedate = dt.date(2025, 6, 27)
+    info2 = tk.Label(okno, text=f"Końca roku szkolnego: {(datedate-dtnow).days} dni")
+    info2.grid(row=3, column=0)
+    global quit_button1
+    quit_button1 = tk.Button(okno, text="Wyjście", command=main_menu2)
+    quit_button1.grid(row=4, column=0)
+#główne menu
 def main_menu():
     okno.title("Strona główna")
     okno.geometry("400x300+100+100")
     #tworzenie tekstu i przycisków głównego menu
     global date
     dtt = dt.datetime.now()
-    date_str = f"{dtt.hour}:{dtt.minute} || {dtt.day}.{dtt.month}.{dtt.year}"
+    if dtt.minute < 10:
+        minute = f"0{dtt.minute}"
+    else:
+        minute = dtt.minute
+    date_str = f"{dtt.hour}:{minute} || {dtt.day}.{dtt.month}.{dtt.year}"
     date = tk.Label(okno, text=date_str)
-    date.grid(row = 0, column = 0)
+    date.grid(row=0, column=0, columnspan=3)
     global quit_button
     quit_button=tk.Button(okno, text="Wyjście", command=okno.destroy)
-    quit_button.grid(row = 1, column = 0)
+    quit_button.grid(row=1, column=2)
     global second_button
     second_button = tk.Button(okno, text="Rysowanie wykresów funkcji", command=wykres_app)
-    second_button.grid(row = 1, column = 1)
+    second_button.grid(row=1, column=0)
+    global third_button
+    third_button = tk.Button(okno,text="Data i godzina", command=date_show_app)
+    third_button.grid(row=1, column=1)
 
 #menu po wykres_app
 def main_menu1():
@@ -108,6 +140,14 @@ def main_menu1():
     quit_button1.destroy()
     main_menu()
 
+#menu po date_show_app
+def main_menu2():
+    quit_button1.destroy()
+    info.destroy()
+    info1.destroy()
+    info2.destroy()
+    main_menu()
+#-----------------------------------------------------------------------------------------------------------
 global okno
 okno = tk.Tk()
 main_menu()
