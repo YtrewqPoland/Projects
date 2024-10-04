@@ -1,83 +1,119 @@
-#import bibliotek
 import matplotlib.pyplot as plt
 import numpy as np
 import math
 import tkinter as tk
 import datetime as dt
-#Funkcje do tkintera
-#wybór aplikacji
-global app
-app = 0
+
+#aplikacja do rysowania wykresów funkcji
 def wykres_app():
-    global app
-    app = 1
-    okno.destroy()
+    okno.title("Rysowanie wykresu funkcji")
+    okno.geometry("600x300+100+100")
+    date.destroy()
+    second_button.destroy()
+    quit_button.destroy()
+    global pol_tekst
+    pol_tekst = tk.Entry(okno, width=30)
+    pol_tekst.grid(row=1, column=1)
+    global info
+    info = tk.Label(okno, text="Podaj wzór funkcji (pamiętaj o znakach składni Pythona!): ")
+    info.grid(row=1, column=0)
+    global pol_tekst1
+    pol_tekst1 = tk.Entry(okno, width=30)
+    pol_tekst1.grid(row=2, column=1)
+    global info1
+    info1 = tk.Label(okno, text="Podaj początek dziedziny funkcji: ")
+    info1.grid(row=2, column=0)
+    global pol_tekst2
+    pol_tekst2 = tk.Entry(okno, width=30)
+    pol_tekst2.grid(row=3, column=1)
+    global info2
+    info2 = tk.Label(okno, text="Podaj koniec dziedziny funkcji: ")
+    info2.grid(row=3, column=0)
+    global input_button1
+    input_button1=tk.Button(okno, text="Potwierdź", command=wart_wykres_formula)
+    input_button1.grid(row = 4, column = 0)
+    global quit_button1
+    quit_button1 = tk.Button(okno, text="Wyjście", command=main_menu1)
+    quit_button1.grid(row=4, column=1)
 
 #pobieranie danych do wykresu
 def wart_wykres_formula():
-     global function_formula
-     function_formula = pol_tekst.get()
-     global a
-     a = pol_tekst1.get()
-     global b
-     b = pol_tekst2.get()
-     a = int(a)
-     b = int(b)
-     plot_function(function_formula, a, b)
-     return function_formula
+    global function_formula
+    try:
+        function_formula = pol_tekst.get()
+        global a
+        a = pol_tekst1.get()
+        global b
+        b = pol_tekst2.get()
+        a = int(a)
+        b = int(b)
+        plot_function(function_formula, a, b)
+    except ValueError as e:
+        print(f"Blad!(Zle dane wejsciowe do wykresu funkcji ({e}) )")
+    except ZeroDivisionError as e:
+        print(f"Blad!(Zle dane wejsciowe do wykresu funkcji ({e}) )")
+    except SyntaxError as e:
+        print(f"Blad!(Zle wzor do wykresu funkcji ({e}) )")
 
+#funkcja rysująca wykres
 def plot_function(function_formula, a, b):
-            if '/x' in function_formula or "/ x" in function_formula:
-                    x = np.arange(a, 0, 0.01)
-                    y = eval(function_formula)
-                    plt.plot(x, y, color = "red")
-                    x = np.arange(0.01, b + 0.01, 0.01)
-                    y = eval(function_formula)
-                    plt.plot(x, y, color = "red")
-            else:
-                    x = np.arange(a, b + 0.01, 0.01)
-                    y = eval(function_formula)
-                    plt.plot(x, y, color = "red")
-            plt.xlabel('x')
-            plt.ylabel('y')
-            plt.grid(True)
-            plt.axhline(y=0, color='black', linestyle='solid')
-            plt.axvline(x=0, color='black', linestyle='solid')
-            plt.show()
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.grid(True)
+    plt.axhline(y=0, color='black', linestyle='solid')
+    plt.axvline(x=0, color='black', linestyle='solid')
+    x=a
+    plt.scatter(x, eval(function_formula), s = 50, facecolor = "red")
+    x=b
+    plt.scatter(x, eval(function_formula), s = 50, facecolor = "red")
+    if '/x' in function_formula or "/ x" in function_formula:
+        x = np.arange(a, 0, 0.001)
+        y = eval(function_formula)
+        plt.plot(x, y, color = "red")
+        x = np.arange(0.01, b + 0.01, 0.001)
+        y = eval(function_formula)
+        plt.plot(x, y, color = "red")
+    else:
+        x = np.arange(a, b + 0.01, 0.001)
+        y = eval(function_formula)
+        plt.plot(x, y, color = "red")
+    plt.show()
 
+# główne menu
+def main_menu():
+    okno.title("Strona główna")
+    okno.geometry("400x300+100+100")
+    #tworzenie tekstu i przycisków głównego menu
+    global date
+    dtt = dt.datetime.now()
+    date_str = f"{dtt.hour}:{dtt.minute} || {dtt.day}.{dtt.month}.{dtt.year}"
+    date = tk.Label(okno, text=date_str)
+    date.grid(row = 0, column = 0)
+    global quit_button
+    quit_button=tk.Button(okno, text="Wyjście", command=okno.destroy)
+    quit_button.grid(row = 1, column = 0)
+    global second_button
+    second_button = tk.Button(okno, text="Rysowanie wykresów funkcji", command=wykres_app)
+    second_button.grid(row = 1, column = 1)
 
-# Tworzenie głównego okna
+#menu po wykres_app
+def main_menu1():
+    pol_tekst.destroy()
+    pol_tekst1.destroy()
+    pol_tekst2.destroy()
+    info.destroy()
+    info1.destroy()
+    info2.destroy()
+    input_button1.destroy()
+    quit_button1.destroy()
+    main_menu()
+
+global okno
 okno = tk.Tk()
-okno.title("Strona główna")
-okno.geometry("400x300+100+100")
-
-#tworzenie tekstu i przycisków głównego menu
-date = tk.Label(okno, text=f"Jest {dt.datetime.now()}",)
-date.grid(row = 0, column = 0)
-quit_button=tk.Button(okno, text="Wyjście", command=okno.destroy)
-quit_button.grid(row = 1, column = 0)
-second_button = tk.Button(okno, text="Drugi przycisk", command=wykres_app)
-second_button.grid(row = 1, column = 1)
+main_menu()
 okno.mainloop()
-if app == 1:
-    okno_1 = tk.Tk()
-    okno_1.title("Rysowanie wykresu funkcji")
-    okno_1.geometry("800x300+100+100")
-    pol_tekst = tk.Entry(okno_1, width=30)
-    pol_tekst.grid(row=1, column=1)
-    info = tk.Label(okno_1, text="Podaj wzór funkcji (pamiętaj o znakach składni Pythona!): ")
-    info.grid(row=1, column=0)
-    pol_tekst1 = tk.Entry(okno_1, width=30)
-    pol_tekst1.grid(row=2, column=1)
-    info1 = tk.Label(okno_1, text="Podaj początek dziedziny funkcji: ")
-    info1.grid(row=2, column=0)
-    pol_tekst2 = tk.Entry(okno_1, width=30)
-    pol_tekst2.grid(row=3, column=1)
-    info2 = tk.Label(okno_1, text="Podaj koniec dziedziny funkcji: ")
-    info2.grid(row=3, column=0)
-    input_button1=tk.Button(okno_1, text="Potwierdź", command=wart_wykres_formula)
-    input_button1.grid(row = 4, column = 0, columnspan=2)
-    okno_1.mainloop()
+
+
     
     
     
