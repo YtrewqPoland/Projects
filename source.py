@@ -69,15 +69,15 @@ def plot_function(function_formula, a, b):
     plt.scatter(x, eval(function_formula), s = 50, facecolor = "red")
     x=b
     plt.scatter(x, eval(function_formula), s = 50, facecolor = "red")
-    if '/x' in function_formula or "/ x" in function_formula:
-        x = np.arange(a, 0, 0.001)
+    if '/x' in function_formula or "/ x" in function_formula or '/abs(':
+        x = np.arange(a, 0, 0.01)
         y = eval(function_formula)
         plt.plot(x, y, color = "red")
-        x = np.arange(0.01, b + 0.01, 0.001)
+        x = np.arange(0.01, b + 0.01, 0.01)
         y = eval(function_formula)
         plt.plot(x, y, color = "red")
     else:
-        x = np.arange(a, b + 0.01, 0.001)
+        x = np.arange(a, b + 0.01, 0.01)
         y = eval(function_formula)
         plt.plot(x, y, color = "red")
     plt.show()
@@ -104,6 +104,7 @@ def date_show_app():
     global quit_button1
     quit_button1 = tk.Button(okno, text="Wyjście", command=main_menu2)
     quit_button1.grid(row=4, column=0)
+
 #główne menu
 def main_menu():
     okno.title("Strona główna")
@@ -148,7 +149,7 @@ def main_menu2():
     info2.destroy()
     main_menu()
 #-----------------------------------------------------------------------------------------------------------
-global okno
+#WŁĄCZENIE PROGRAMU
 okno = tk.Tk()
 main_menu()
 okno.mainloop()
